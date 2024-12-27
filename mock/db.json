@@ -1,0 +1,11 @@
+{
+    "contacts": [
+        {
+            "id": "1",
+            "name": "Avetiq",
+            "lastName": "Isahakyan",
+            "description": "Loves books",
+            "avatar": null
+        }
+    ]
+}
