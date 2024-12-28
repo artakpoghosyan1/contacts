@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { deleteContact, getContactById } from '../services/api.ts';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { ContactForm } from '../components/form/ContactForm.tsx';
 import { Modal } from '../components/Modal.tsx';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -42,12 +42,12 @@ function RouteComponent() {
         setIsConfirmModalOpen(false)
     }
 
-    const handleConfirmDelete = useCallback(() => {
+    const handleConfirmDelete = () => {
         if (contact?.id) {
             mutate(contact.id);
             setIsConfirmModalOpen(false);
         }
-    }, [contact?.id, mutate]);
+    };
 
     if (isLoading) {
         return <span>... loading</span>
@@ -61,18 +61,18 @@ function RouteComponent() {
         <div className="flex gap-5">
             <div className="w-60">
                 <img
-                    src={contact.avatar}
-                    alt={contact.name}
+                    src={contact?.avatar}
+                    alt={contact?.name}
                     className="rounded-2xl w-full h-full object-fill"
                 />
             </div>
 
             <div className="flex flex-col gap-5">
                 <h3 className="mb-5 text-2xl/9 font-bold tracking-tight text-gray-900 flex-grow">
-                    {contact.name} {contact.lastname}
+                    {contact?.name} {contact?.lastname}
                 </h3>
 
-                <p>{contact.description}</p>
+                <p>{contact?.description}</p>
 
                 <div>
                     <Button
