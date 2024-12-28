@@ -1,7 +1,7 @@
 import {createFileRoute, Link, Outlet} from '@tanstack/react-router'
 import {useQuery} from '@tanstack/react-query'
 import {getContacts} from '../services/api.ts'
-import {useCallback, useState} from "react";
+import {useState} from "react";
 import {ContactForm} from "../components/form/ContactForm.tsx";
 import {Modal} from "../components/Modal.tsx";
 import {Button} from "../components/Button.tsx";
@@ -19,9 +19,9 @@ function Index() {
         error,
     } = useQuery({queryKey: ['contacts'], queryFn: getContacts})
 
-    const handleCloseModal = useCallback(() => {
+    const handleCloseModal = () => {
         setsIsOpenModal(false)
-    }, [])
+    }
 
     if (isLoading) {
         return <span>... loading</span>
@@ -40,7 +40,7 @@ function Index() {
                             id="first-name"
                             name="first-name"
                             type="text"
-                            autoComplete="given-name"
+                            placeholder="Search"
                             className="flex-grow rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                         />
                         <Button

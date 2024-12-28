@@ -7,6 +7,8 @@ import {ChangeEvent, FC, useCallback} from "react";
 import {FileUpload} from "./FileUpload.tsx";
 import {Field} from "./Field.tsx";
 import {Button} from "../Button.tsx";
+import {useNavigate} from "@tanstack/react-router";
+import { nanoid } from 'nanoid'
 
 const contactSchema = z.object({
     name: z.string().min(1, 'Name is required'),
@@ -21,15 +23,19 @@ interface Props {
 }
 
 export const ContactForm: FC<Props> = ({initialData, onClose}) => {
-    const queryClient = useQueryClient();
+    const queryClient = useQueryClient()
+    const navigate = useNavigate()
 
     const {mutate, isPending} = useMutation({
         mutationFn: initialData ? updateContact : addContact,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: initialData ? ['contact', initialData.id] : ['contacts'] })
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({queryKey: ['contacts']})
+            if(!initialData) {
+                navigate({ to: `/contacts/${data.id}` })
+            }
         },
         onError: (error) => {
-            console.error('Error creating contact:', error);
+            console.error('Error creating contact:', error)
         },
     });
 
@@ -46,14 +52,14 @@ export const ContactForm: FC<Props> = ({initialData, onClose}) => {
             onChange: contactSchema
         },
         onSubmit: async (data) => {
-            const id = initialData ? {id: initialData.id} : {}
-            mutate({...data.value, ...id}, {onSuccess: onClose})
+            const id = initialData?.id || nanoid()
+            mutate({...data.value, id}, {onSuccess: onClose})
         },
     });
 
     const handleFileChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0] || null;
-        form.setFieldValue('avatar', file ? URL.createObjectURL(file) : '');
+        form.setFieldValue('avatar', file ? URL.createObjectURL(file) : '')
         form.validateField('avatar', 'change')
     }, [form]);
 
@@ -98,7 +104,7 @@ export const ContactForm: FC<Props> = ({initialData, onClose}) => {
                 />
             </div>
 
-            <div className="bg-gray-50 px-4 py-3 sm:flex gap-3 sm:flex-row-reverse sm:px-6">
+            <div className="px-4 py-3 sm:flex gap-3 sm:flex-row-reverse sm:px-6 mt-3">
                 <form.Subscribe
                     selector={(state) => [state.isSubmitting]}
                     children={([isSubmitting]) => (
@@ -117,5 +123,5 @@ export const ContactForm: FC<Props> = ({initialData, onClose}) => {
                 </button>
             </div>
         </form>
-    );
+    )
 }

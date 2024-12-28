@@ -1,4 +1,4 @@
-import {FC, memo, ReactNode} from 'react'
+import {FC, ReactNode} from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
     open: boolean
 }
 
-export const Modal: FC<Props> = memo(({children, title, size = 'sm', onClose, open}) => {
+export const Modal: FC<Props> = ({children, title, size = 'sm', onClose, open}) => {
     return (
         <Dialog open={open} onClose={onClose} className="relative z-10">
             <DialogBackdrop
@@ -38,4 +38,4 @@ export const Modal: FC<Props> = memo(({children, title, size = 'sm', onClose, op
             </div>
         </Dialog>
     )
-})
+}
