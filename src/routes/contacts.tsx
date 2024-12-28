@@ -69,6 +69,7 @@ function Index() {
                 </aside>
 
                 <main className="flex-grow p-6">
+                    {contacts && contacts.length === 0 && <h1 className='text-xl'>Add your first contact</h1>}
                     <Outlet />
                 </main>
             </div>
