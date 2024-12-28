@@ -1,11 +1,18 @@
 {
-    "contacts": [
-        {
-            "id": "1",
-            "name": "Avetiq",
-            "lastName": "Isahakyan",
-            "description": "Loves books",
-            "avatar": null
-        }
-    ]
+  "contacts": [
+    {
+      "id": "5de2",
+      "name": "wef",
+      "lastname": "wef",
+      "description": "wef",
+      "avatar": "blob:http://localhost:5173/f970384a-194d-4275-9192-1663327a2164"
+    },
+    {
+      "name": "qqq",
+      "lastname": "eee",
+      "description": "",
+      "avatar": "blob:http://localhost:5173/a6a72b66-d5e3-433d-adb1-a13e50cf3d79",
+      "id": "7c1e"
+    }
+  ]
 }

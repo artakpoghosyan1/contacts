@@ -13,12 +13,12 @@ export const getContactById = async (id: string) => {
     return response.data;
 };
 
-export const addContact = async (contact: { name: string; email: string }) => {
+export const addContact = async (contact: Contact) => {
     const response = await axios.post(API_URL, contact);
     return response.data;
 };
 
-export const updateContact = async (contact: { id: number; name: string; email: string }) => {
+export const updateContact = async (contact: Contact) => {
     const response = await axios.put(`${API_URL}/${contact.id}`, contact);
     return response.data;
 };
