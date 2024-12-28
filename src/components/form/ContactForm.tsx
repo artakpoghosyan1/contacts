@@ -6,6 +6,7 @@ import {addContact, updateContact} from "../../services/api.ts";
 import {ChangeEvent, FC, useCallback} from "react";
 import {FileUpload} from "./FileUpload.tsx";
 import {Field} from "./Field.tsx";
+import {Button} from "../Button.tsx";
 
 const contactSchema = z.object({
     name: z.string().min(1, 'Name is required'),
@@ -101,12 +102,9 @@ export const ContactForm: FC<Props> = ({initialData, onClose}) => {
                 <form.Subscribe
                     selector={(state) => [state.isSubmitting]}
                     children={([isSubmitting]) => (
-                        <button
-                            type="submit"
-                            className="flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        >
+                        <Button type="submit" primary>
                             {isSubmitting || isPending ? 'Submitting...' : 'Submit'}
-                        </button>
+                        </Button>
                     )}
                 />
 

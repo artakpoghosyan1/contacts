@@ -4,6 +4,7 @@ import {getContacts} from '../services/api.ts'
 import {useCallback, useState} from "react";
 import {ContactForm} from "../components/form/ContactForm.tsx";
 import {Modal} from "../components/Modal.tsx";
+import {Button} from "../components/Button.tsx";
 
 export const Route = createFileRoute('/contacts')({
     component: Index,
@@ -42,11 +43,10 @@ function Index() {
                             autoComplete="given-name"
                             className="flex-grow rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                         />
-                        <button
-                            className='justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto'
+                        <Button
                             onClick={() => setsIsOpenModal(true)}>
                             New
-                        </button>
+                        </Button>
                     </header>
 
                     <div className='px-5 py-3'>
