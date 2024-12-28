@@ -3,12 +3,13 @@ import {useForm} from '@tanstack/react-form'
 import {Contact} from "../../interfaces/contact.ts";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {addContact, updateContact} from "../../services/api.ts";
-import {ChangeEvent, FC, useCallback} from "react";
+import {ChangeEvent, FC, useMemo} from "react";
 import {FileUpload} from "./FileUpload.tsx";
 import {Field} from "./Field.tsx";
 import {Button} from "../Button.tsx";
 import {useNavigate} from "@tanstack/react-router";
 import { nanoid } from 'nanoid'
+import {saveImage} from "../../services/indexedDB.ts";
 
 const contactSchema = z.object({
     name: z.string().min(1, 'Name is required'),
@@ -25,6 +26,8 @@ interface Props {
 export const ContactForm: FC<Props> = ({initialData, onClose}) => {
     const queryClient = useQueryClient()
     const navigate = useNavigate()
+
+    const id = useMemo(() => initialData?.id ?? nanoid(), [initialData])
 
     const {mutate, isPending} = useMutation({
         mutationFn: initialData ? updateContact : addContact,
@@ -52,16 +55,16 @@ export const ContactForm: FC<Props> = ({initialData, onClose}) => {
             onChange: contactSchema
         },
         onSubmit: async (data) => {
-            const id = initialData?.id || nanoid()
             mutate({...data.value, id}, {onSuccess: onClose})
         },
     });
 
-    const handleFileChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0] || null;
-        form.setFieldValue('avatar', file ? URL.createObjectURL(file) : '')
+        const url = file ? await saveImage(id, file) : ''
+        form.setFieldValue('avatar', url)
         form.validateField('avatar', 'change')
-    }, [form]);
+    };
 
     return (
         <form

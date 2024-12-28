@@ -1,4 +1,4 @@
-import {ChangeEvent, FC, memo} from 'react';
+import {ChangeEvent, FC} from 'react';
 import {FieldInfo} from "./FieldInfo.tsx";
 import {ReactFormExtendedApi} from "@tanstack/react-form";
 import {Contact} from "../../interfaces/contact.ts";
@@ -8,7 +8,7 @@ interface Props {
     onChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const FileUpload: FC<Props> = memo(({form, onChange}) => {
+export const FileUpload: FC<Props> = ({form, onChange}) => {
     return <form.Field
         name="avatar"
         children={(field) => {
@@ -56,4 +56,4 @@ export const FileUpload: FC<Props> = memo(({form, onChange}) => {
             );
         }}
     />
-})
+}

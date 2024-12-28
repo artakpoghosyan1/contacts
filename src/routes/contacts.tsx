@@ -34,7 +34,7 @@ function Index() {
     return (
         <>
             <div className="flex h-screen">
-                <aside className='w-72 bg-gray-200'>
+                <aside className='w-72 bg-gray-200 overflow-auto'>
                     <header className='border-b border-gray-300 px-5 py-3 flex gap-2'>
                         <input
                             id="first-name"
