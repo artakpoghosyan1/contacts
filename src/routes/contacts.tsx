@@ -31,21 +31,40 @@ function Index() {
     }
 
     return (
-        <div>
-            <button onClick={() => setsIsOpenModal(true)}>New</button>
+        <>
+            <div className="flex h-screen">
+                <aside className='w-72 bg-gray-200'>
+                    <header className='border-b border-gray-300 px-5 py-3 flex gap-2'>
+                        <input
+                            id="first-name"
+                            name="first-name"
+                            type="text"
+                            autoComplete="given-name"
+                            className="flex-grow rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                        />
+                        <button
+                            className='justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto'
+                            onClick={() => setsIsOpenModal(true)}>
+                            New
+                        </button>
+                    </header>
 
-            <div className="p-2">
-                {contacts?.map((contact) => (
-                    <Link
-                        key={contact.id}
-                        to={contact.id}
-                        className='block'
-                    >
-                        {contact.name}
-                    </Link>
-                ))}
+                    <div className='px-5 py-3'>
+                        {contacts?.map((contact) => (
+                            <Link
+                                key={contact.id}
+                                to={contact.id}
+                                className='block p-2 data-[status=active]:bg-blue-600 hover:bg-blue-600 rounded-md hover:text-white data-[status=active]:text-white mb-2 last:mb-0'
+                            >
+                                {contact.name} {contact.lastname}
+                            </Link>
+                        ))}
+                    </div>
+                </aside>
 
-                <Outlet/>
+                <main className='flex-grow p-6'>
+                    <Outlet/>
+                </main>
             </div>
 
             <Modal
@@ -54,8 +73,8 @@ function Index() {
                 onClose={handleCloseModal}
                 open={isOpenModal}
             >
-                <ContactForm onClose={handleCloseModal} />
+                <ContactForm onClose={handleCloseModal}/>
             </Modal>
-        </div>
+        </>
     )
 }
