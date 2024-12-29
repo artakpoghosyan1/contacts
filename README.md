@@ -1,7 +1,5 @@
 # React + TypeScript + Vite (Contacts App)
 
-**Live Demo:** [https://artakpoghosyan1.github.io/contacts/](https://artakpoghosyan1.github.io/contacts/)
-
 **Source Code:** [https://github.com/artakpoghosyan1/contacts](https://github.com/artakpoghosyan1/contacts)
 
 ## Running the Project Locally
